@@ -124,11 +124,20 @@ class boss_helper(eploye):
                 print("You are not Boss Helper")
                 ques()
 
+    #Code to count number of stuff
+    def b_h(cls):
+        count = cursor.execute("SELECT COUNT(*) FROM WR").fetchone()[0]
+        print(f"Number of people in the database: {count}")
+
+
+
+
+#-------------------------------------------------------------------------------------------------------------
 
 def ques():
     ask = input("Who are you? /1 - Boss/ 2 - BossHelper/ 3 - Employee/ 4 - EXIT: ")
     eploy_intance = eploye()
-    #b_h_f = boss_helper()
+    b_h_f = boss_helper()
     #bs = boss()
     if int(ask) == 3:
         print("Fine")
