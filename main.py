@@ -129,7 +129,48 @@ class boss_helper(eploye):
         count = cursor.execute("SELECT COUNT(*) FROM WR").fetchone()[0]
         print(f"Number of people in the database: {count}")
 
+# Create class Boss
+class boss(boss_helper):
+    @classmethod
+    @abstractmethod
+    # Same checker but for BOSS
+    def chacker(cls):
+            bss = boss()
+            bss_h = boss_helper
+            f_name = input("Your first name: ")
+            s_name = input("Your second name: ")
+            password = input("Your password: ")
+            chack_stat = cursor.execute("SELECT Status FROM WR WHERE First_Name= ? AND Last_Name = ? AND Password = ?",
+                                        (f_name, s_name, password)).fetchall()
 
+            #Questions what would to do
+            if chack_stat:
+              chack_stat = chack_stat[0][0]
+            else:
+              print("No status found for the provided information.")
+            if chack_stat == "Boss":
+                eploy_intance = eploye()
+                ask = input("What would you like to do?\n 1. Change your Email \n 2. Check your payment \n 3. Check number of stuff \n 4. Delete some member"
+                            " \n 5. Update Information of member \n 6. Watch all members information \n 7. Add member \nAnswer:  ")
+                if int(ask) == 1:
+                    eploy_intance.change_email(f_name, s_name)
+                elif int(ask) == 2:
+                    eploy_intance.see_my_payment(password, f_name, s_name)
+                elif int(ask) == 3:
+                    bss_h.b_h(cls)
+                    ques()
+                elif int(ask) == 4:
+                    bss.del_mem()
+                elif int(ask) == 5:
+                    bss.up_dat_mem()
+                elif int(ask) == 6:
+                    bss.ch_al_on()
+                elif int(ask) == 7:
+                    bss.add_mem()
+
+            else:
+                print("You are not Boss Helper")
+                ques()
 
 
 #-------------------------------------------------------------------------------------------------------------
