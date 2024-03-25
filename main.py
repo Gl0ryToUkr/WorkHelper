@@ -172,6 +172,100 @@ class boss(boss_helper):
                 print("You are not Boss Helper")
                 ques()
 
+                # Code to delete a member of stuff
+                def del_mem(self):
+                    F_n = input("Input first name of people who you would like delete: ")
+                    S_n = input("Input second name of people who you would like delete: ")
+                    E_a = input("Input Email of people who you would like delete: ")
+
+                    data = ("SELECT * FROM WR")
+
+                    row = cursor.execute("SELECT * FROM WR WHERE First_Name = ? AND Last_Name = ? AND Email = ?",
+                                         (F_n, S_n, E_a))
+                    for data in row:
+                        print(data)
+
+                    cursor.execute("DELETE FROM WR WHERE First_Name = ? AND Last_Name = ? AND Email = ?",
+                                   (F_n, S_n, E_a))
+
+                    for data in row:
+                        print(data)
+
+                    ques()
+
+                # Chacnge Email OR First Name OR Second Name OR Payment for staff
+                def up_dat_mem(self):
+                    f_n = input("Input first name of people who you would like update information: ")
+                    s_n = input("Input second name of people who you would like update information: ")
+                    e_a = input("Input Email of people who you would like update information: ")
+                    q_on = input(
+                        "What you would like change? \n 1. Email \n 2. First Name \n 3. Second Name \n 4. Payment \n Answer: ")
+                    if int(q_on) == 1:
+
+                        f_d = cursor.execute(
+                            "SELECT Email, First_Name, Last_Name, Payment FROM WR WHERE  First_Name= ? AND Last_Name = ? AND Email = ?",
+                            (f_n, s_n, e_a)).fetchall()
+
+                        if not f_d:
+                            print("Can`t find")
+                        if f_d:
+                            em = input("Employee`s new email address: ")
+                            data = cursor.execute(
+                                "UPDATE WR SET Email = ? WHERE First_Name= ? AND Last_Name = ? AND Email = ?",
+                                (em, f_n, s_n, e_a)).fetchall()
+                            print("Employee`s Email has been changed")
+                            connect.commit()
+                            ques()
+
+                    if int(q_on) == 2:
+
+                        f_d = cursor.execute(
+                            "SELECT Email, First_Name, Last_Name, Payment FROM WR WHERE  First_Name= ? AND Last_Name = ? AND Email = ?",
+                            (f_n, s_n, e_a)).fetchall()
+
+                        if not f_d:
+                            print("Can`t find")
+                        if f_d:
+                            em = input("Employee`s new name: ")
+                            data = cursor.execute(
+                                "UPDATE WR SET First_Name = ? WHERE First_Name= ? AND Last_Name = ? AND Email = ?",
+                                (em, f_n, s_n, e_a)).fetchall()
+                            print("Employee`s First Name has been changed")
+                            connect.commit()
+                            ques()
+                    if int(q_on) == 3:
+
+                        f_d = cursor.execute(
+                            "SELECT Email, First_Name, Last_Name, Payment FROM WR WHERE  First_Name= ? AND Last_Name = ? AND Email = ?",
+                            (f_n, s_n, e_a)).fetchall()
+
+                        if not f_d:
+                            print("Can`t find")
+                        if f_d:
+                            em = input("Employee`s new Second Name: ")
+                            data = cursor.execute(
+                                "UPDATE WR SET First_Name = ? WHERE Last_Name= ? AND Last_Name = ? AND Email = ?",
+                                (em, f_n, s_n, e_a)).fetchall()
+                            print("Employee`s Second Name has been changed")
+                            connect.commit()
+                            ques()
+
+                    if int(q_on) == 4:
+                        f_d = cursor.execute(
+                            "SELECT Email, First_Name, Last_Name, Payment FROM WR WHERE  First_Name= ? AND Last_Name = ? AND Email = ?",
+                            (f_n, s_n, e_a)).fetchall()
+
+                        if not f_d:
+                            print("Can`t find")
+                        if f_d:
+                            em = input("Employee`s new Payment: ")
+                            data = cursor.execute(
+                                "UPDATE WR SET Payment = ? WHERE First_Name= ? AND Last_Name = ? AND Email = ?",
+                                (em, f_n, s_n, e_a)).fetchall()
+                            print("Employee`s Payment has been changed")
+                            connect.commit()
+                            ques()
+
 
 #-------------------------------------------------------------------------------------------------------------
 
