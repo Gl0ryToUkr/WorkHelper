@@ -309,3 +309,37 @@ def ques():
 
 
 ques()
+
+#-------------------------------------------------------------------------------------------------------------
+
+
+import unittest
+from unittest.mock import patch
+from io import StringIO
+from main import eploye
+
+class TestEmployeeMethods(unittest.TestCase):
+
+    @patch('builtins.input', side_effect=['John', 'Doe', 'Pass_334'])
+    def test_chack_emp(self, mock_input):
+        emp_instance = eploye()
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            emp_instance.chack_emp()
+            output = fake_out.getvalue().strip()
+            self.assertIn('Employee', output)
+
+    @patch('builtins.input', side_effect=['John', 'Doe', 'Pass_334'])
+    def test_see_my_payment(self, mock_input):
+        emp_instance = eploye()
+        emp_instance.see_my_payment('Pass_334', 'John', 'Doe')
+        self.assertIn("Ypur payment is: 20000 UAN")
+
+    @patch('builtins.input', side_effect=['John', 'Doe', 'Pass_334'])
+    def test_change_email(self, mock_input):
+        emp_instance = eploye()
+        with patch('builtins.input', return_value='new_email@example.com'):
+            emp_instance.change_email('John', 'Doe')
+            self.assertIn("JohnDoe@gmail.com")
+
+if __name__ == '__main__':
+    unittest.main()
