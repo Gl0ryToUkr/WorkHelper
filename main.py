@@ -27,6 +27,8 @@ table = cursor.execute("""CREATE TABLE IF NOT EXISTS WR (
 class eploye():
     @classmethod
     @abstractmethod
+
+    #Checker to check if people with inputed name and surname is with status employee
     def chack_emp(cls):
         f_name = input("Your first name: ")
         s_name = input("Your second name: ")
@@ -49,9 +51,7 @@ class eploye():
             print("You are not Employee")
             ques()
 
-
-
-
+    #Code to check emploe`s payment
     def see_my_payment(cls, password, f_name, s_name):
         s_name = s_name
         f_name = f_name
@@ -71,7 +71,7 @@ class eploye():
             ques()
 
 
-
+    #Code to change emploe`s Email
     def change_email(self,f_name, s_name):
 
         f_name = f_name
@@ -89,6 +89,40 @@ class eploye():
             print("Your Email has been changed")
             connect.commit()
             ques()
+
+
+#Create class boss_helper
+class boss_helper(eploye):
+    @classmethod
+    @abstractmethod
+
+    #Same like chacker in employee but chacking if people with entered
+    #name and surname has status of Boss Helper
+    def boss_helper(cls):
+            bss_h = boss_helper
+            f_name = input("Your first name: ")
+            s_name = input("Your second name: ")
+            password = input("Your password: ")
+            chack_stat = cursor.execute("SELECT Status FROM WR WHERE First_Name= ? AND Last_Name = ? AND Password = ?",
+                                        (f_name, s_name, password)).fetchall()
+            if chack_stat:
+              print(chack_stat[0][0])
+              chack_stat = chack_stat[0][0]
+            else:
+              print("No status found for the provided information.")
+            if chack_stat == "Boss_Helper":
+                eploy_intance = eploye()
+                ask = input("What would you like to do?\n 1. Change your Email \n 2. Check your payment \n 3. Check number of stuff\n Answer:  ")
+                if int(ask) == 1:
+                    eploy_intance.change_email(f_name, s_name)
+                elif int(ask) == 2:
+                    eploy_intance.see_my_payment(password, f_name, s_name)
+                elif int(ask) == 3:
+                    bss_h.b_h(cls)
+                    ques()
+            else:
+                print("You are not Boss Helper")
+                ques()
 
 
 def ques():
